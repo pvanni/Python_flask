@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block info %}
+<script src="{{ url_for('static', filename='js//dropzone-5.7.0//dist//dropzone.js') }}"></script>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='js//dropzone-5.7.0//dist//basic.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='js//dropzone-5.7.0//dist//dropzone.css') }}">
+
+<style>
+    h2 {
+        padding-bottom: 25px;
+    }
+</style>
+
+<body>
+    <div class="container" style="padding-top: 50px;">
+
+        <h1> 16S Sequences upload </h1>
+        <p>You can drag and drop files directly to the box below (clicking and selecting works aswell).</p>
+        <p>We recommend that the sequences are in a single file that is compressed (for example: .zip, .gz, .tar), but
+            you can upload the .fastq files individually by dragging everything to the box.
+        </p>
+        <p>
+            <strong>File has been succesfully uploaded once the grey
+                bar has vanished from the file icon and no error message is seen.
+            </strong>
+        </p>
+        <hr>
+        <form method="POST" action='/upload_seq/{{ dataset.id }}' class="dropzone dz-clickable"
+              id="dropper" enctype="multipart/form-data">
+        </form>
+        <hr>
+        <p style="padding-top: 50px;">After uploading all the sequence files, click the submit button below</p>
+        <form class="container mt-3 mb-3 ml-5" method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+        <p>
+            <strong>
+                NOTE: you CANNOT manually add sequence files to this dataset.
+                In this case please submit a new dataset or email customer support at: info@genobiomics.com
+            </strong>
+        </p>
+    </div>
+
+<script type="application/javascript">
+
+    Dropzone.options.dropper = {
+        paramName: 'file',
+        chunking: true,
+        forceChunking: true,
+        addRemoveLinks: true,
+        url: '/upload_seq/{{ dataset.id }}',
+        maxFilesize: 1025, // megabytes
+        chunkSize: 1000000 // bytes
+    }
+
+</script>
+
+</body>
+{% endblock info %}

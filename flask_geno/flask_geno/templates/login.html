@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block info %}
+
+<div style="margin: 50px auto 0; width: 500px; border: 1px solid black; border-radius: 10px; padding: 40px; box-shadow: 0 0 10px 0 #ccc; text-align: left;">
+    <form class="form-signin" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <img class="mb-4" src="{{ url_for('static', filename='genobiomics_logo.jpg') }}" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+
+            {% if error_message %}
+                <div class="alert alert-danger">
+                    <span>{{ error_message }}</span>
+                </div>
+            {% endif %}
+
+            {% if form.email.errors %}
+                {{ form.email(class="form-control from-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control from-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class="form-control-label") }}
+            {% if form.password.errors %}
+                {{ form.password(class="form-control from-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.password(class="form-control from-control-lg") }}
+            {% endif %}
+        </div>
+        <div class="checkbox mb-3">
+            {{ form.remember(class="form-check-input") }}
+            {{ form.remember.label(class="form-check-label") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+        </div>
+
+        <p class="mt-5 mb-3 text-muted">&copy; 2018-2023</p>
+    </form>
+</div>
+{% endblock info %}

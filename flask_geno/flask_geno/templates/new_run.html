@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block info %}
+<style>
+    .form-group {
+        padding-top: 30px;
+    }
+</style>
+
+<h1> Upload your metadata for the run </h1>
+<hr>
+<h2> This is the section for uploading your file </h2>
+<hr>
+<div class="row">
+    <form class="container mt-3 mb-3 ml-5" method="POST" action="" enctype="multipart/form-data">
+        {{ metadata_form.hidden_tag() }}
+        <div class="form-group">
+            <h2>
+            {{ metadata_form.metadata_file.label() }}
+            </h2>
+            <p>
+                Please select your metadata file that is in .xlsx, .tsv, or .csv format
+            </p>
+            <p>
+                Rows should be samples and columns the variables describing the samples.
+            </p>
+            {{ metadata_form.metadata_file(class="form-control-file") }}
+            {% if metadata_form.metadata_file.errors %}
+                {% for error in metadata_form.metadata_file.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ metadata_form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+<hr>
+
+<p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+<hr>
+<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+<hr>
+{% endblock info %}

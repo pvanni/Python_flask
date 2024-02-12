@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block info %}
+
+{% for section in subject_dict %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">{{ section.title }}</h2>
+
+                {% for item in section.main_text %}
+                    {% if item[-4:] == '.png' %}
+                        <img src="{{ url_for('static', filename=file_path + item) }}" class="img-fluid" alt="Figure">
+                    {% elif item[:14] == 'Figure legend.'%}
+                        <figcaption class="figure-caption mb-4">{{ item[15:] }}</figcaption>
+                    {% else %}
+                        <p class="mb-4">{{ item }}</p>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock info %}

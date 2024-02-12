@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block info %}
+    <style>
+        .blog-post-meta {
+            margin-bottom: 1.25rem;
+            color: #999;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+        }
+
+            .blog-post {
+              margin-bottom: 4rem;
+        }
+            .blog-post-title {
+              margin-bottom: .25rem;
+              font-size: 2.5rem;
+        }
+            .blog-post-meta {
+              margin-bottom: 1.25rem;
+              color: #999;
+        }
+    </style>
+    <div class="container">
+        {% for run_job in run_jobs %}
+            {% if run_job.job_status != 'Unfinished' %}
+            <hr>
+            <div class="blog-post">
+                <h2 class="blog-post-title">
+                    {% if run_job.job_status == 'Queue' %}
+                        <span class="badge badge-secondary">
+                            {{ run_job.job_status }}
+                        </span>
+                    {% endif %}
+                    {% if run_job.job_status == 'Running' %}
+                        <span class="badge badge-info">
+                            {{ run_job.job_status }}
+                        </span>
+                    {% endif %}
+                    {% if run_job.job_status == 'Complete' %}
+                        <span class="badge badge-success">
+                            {{ run_job.job_status }}
+                        </span>
+                        <a class="badge badge-primary" href="{{ url_for('run_results', runjob_id=run_job.id) }}" role="button">View Results</a>
+                    {% endif %}
+                    {{ run_job.job_title }}
+                </h2>
+                <p class="blog-post-meta">Submitted: {{ run_job.date_created.strftime('%Y-%m-%d') }}</p>
+                <p>{{ run_job.job_description }}</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Metadata file: {{run_job.metadata_file}}</li>
+                        <li class="breadcrumb-item">Sequences file: {{run_job.sequences_file}}</li>
+                        <li class="breadcrumb-item">Sequences format: {{run_job.sequences_format}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <hr>
+            {% endif %}
+        {% endfor %}
+        <hr>
+    </div>
+{% endblock info %}

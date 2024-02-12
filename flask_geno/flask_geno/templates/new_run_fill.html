@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block info %}
+<h1> Upload your metadata for the run </h1>
+<hr>
+<h2> This is the section for uploading your file </h2>
+<hr>
+<div class="row">
+    <form class="container mt-3 mb-3 ml-5" method="POST" action="" enctype="multipart/form-data">
+        {{ metadata_form.hidden_tag() }}
+
+        <div class="form-group">
+            <table class="table table-striped table-bordered" id="table_1">
+                <thead>
+                <tr>
+                    {% for column in df.columns.values %}
+                        <th scope="col">{{ column }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in df.values %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            <a class="btn btn-outline-primary" href="{{ url_for('new_run') }}">Reset Page<span class="sr-only">(current)</span></a>
+
+            <!-- Job title -->
+            <div class="form-group">
+                    {{ metadata_form.job_name.label(class="form-control-label") }}
+                    {{ metadata_form.job_name(class="form-control from-control-lg") }}
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                    {{ metadata_form.job_description.label(class="form-control-label") }}
+                    {{ metadata_form.job_description(class="form-control from-control-lg") }}
+            </div>
+
+            <!-- Name column -->
+            <div class="form-group">
+                    {{ metadata_form.name_column.label(class="form-control-label") }}
+                    {{ metadata_form.name_column(class="form-control from-control-lg") }}
+            </div>
+
+            <!-- target variable column -->
+            <div class="form-group">
+                    {{ metadata_form.target_column.label(class="form-control-label") }}
+                    {{ metadata_form.target_column(class="form-control from-control-lg") }}
+            </div>
+
+            <!-- f_primer -->
+            <div class="form-group">
+                    {{ metadata_form.f_primer.label(class="form-control-label") }}
+                    {{ metadata_form.f_primer(class="form-control from-control-lg") }}
+            </div>
+
+            <!-- r_primer -->
+            <div class="form-group">
+                    {{ metadata_form.r_primer.label(class="form-control-label") }}
+                    {{ metadata_form.r_primer(class="form-control from-control-lg") }}
+            </div>
+
+            <div class="form-group">
+                <h2>
+                {{ metadata_form.dataset_choice.label() }}
+                </h2>
+                <p></p>
+                {{ metadata_form.dataset_choice(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ metadata_form.submit(class="btn btn-outline-info") }}
+            </div>
+    </form>
+</div>
+<hr>
+
+<p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+<hr>
+<p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+<hr>
+{% endblock info %}
